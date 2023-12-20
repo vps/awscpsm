@@ -1,0 +1,30 @@
+{
+  "TableName": "CSPMConfigurations",
+  "KeySchema": [
+    {
+      "AttributeName": "resourceId",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "resourceType",
+      "KeyType": "RANGE"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "resourceId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "resourceType",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 5,
+    "WriteCapacityUnits": 5
+  },
+  "StreamSpecification": {
+    "StreamEnabled": false
+  }
+}

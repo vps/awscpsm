@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template for the CSPM MVP project
+
+Resources:
+  CSPMFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: CSPMFunction
+      Handler: src/lambda/cspm_function.lambda_handler
+      Runtime: python3.8
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        S3Bucket: !Ref CSPMBucket
+        S3Key: src/lambda.zip
+
+  CSPMBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: cspm-reports
+      AccessControl: Private
+
+  CSPMTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: CSPMConfig
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: N
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+
+  CSPMApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: CSPMApi
+      Description: API Gateway for the CSPM MVP project
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+Outputs:
+  CSPMFunction:
+    Description: ARN of the CSPM Lambda function
+    Value: !GetAtt CSPMFunction.Arn
+  CSPMBucket:
+    Description: Name of the S3 bucket for CSPM reports
+    Value: !Ref CSPMBucket
+  CSPMTable:
+    Description: Name of the DynamoDB table for CSPM configuration
+    Value: !Ref CSPMTable
+  CSPMApi:
+    Description: ID of the CSPM API Gateway
+    Value: !Ref CSPMApi

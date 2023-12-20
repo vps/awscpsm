@@ -1,0 +1,47 @@
+# AWS SDK for Python
+boto3==1.17.49
+
+# Used for handling dates and times
+python-dateutil==2.8.1
+
+# Used for handling HTTP requests
+requests==2.25.1
+
+# Used for handling YAML files
+PyYAML==5.4.1
+
+# Used for handling JSON files
+jsonschema==3.2.0
+
+# Used for unit testing
+pytest==6.2.2
+
+# Used for mocking in tests
+pytest-mock==3.5.1
+
+# Used for handling environment variables
+python-dotenv==0.15.0
+
+# Used for AWS Lambda function packaging
+aws-sam-cli==1.21.1
+
+# Used for AWS CloudFormation
+troposphere==3.0.2
+
+# Used for AWS API Gateway
+aws-cdk.aws-apigateway==1.89.0
+
+# Used for AWS S3
+aws-cdk.aws-s3==1.89.0
+
+# Used for AWS DynamoDB
+aws-cdk.aws-dynamodb==1.89.0
+
+# Used for AWS Lambda
+aws-cdk.aws-lambda==1.89.0
+
+# Used for AWS IAM
+aws-cdk.aws-iam==1.89.0
+
+# Used for AWS CloudWatch
+aws-cdk.aws-cloudwatch==1.89.0

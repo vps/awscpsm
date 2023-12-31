@@ -1,5 +1,5 @@
 # API Documentation
-
+https://<api-id>.execute-api.<region>.amazonaws.com/prod
 This document provides detailed information about the RESTful API endpoints exposed by the Cloud Security Posture Management (CSPM) system. The API is orchestrated via AWS API Gateway and allows users to interact with the system, initiate scans, and retrieve results.
 
 ## Base URL
